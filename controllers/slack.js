@@ -2,6 +2,7 @@ var express = require('express');
 var request = require('request');
 var Msg = require('../models/Messages');
 var router = express.Router();
+const conf = require('../conf.json');
 const trigger_pattern = new RegExp('.*go.*', "i");
 
 var addMsg = data => {
@@ -12,12 +13,12 @@ var addMsg = data => {
 }
 
 var getLastMsgQuery = () => {
-    return Msg.findOne().sort({ field: 'asc', _id: -1 }).limit(1)
+    return Msg.findOne().sort({ field: 'asc', ts: -1 }).limit(1)
 }
 
 var checkForGo = last => {
     let options = {
-        uri: `https://slack.com/api/channels.history?token=xoxp-362716750658-362489754468-362064847232-6a502ce08b7d0b614b206e4747485107&channel=CANR4EQ21&pretty=1&oldest=${last}`,
+        uri: `https://slack.com/api/channels.history?token=${conf.slack.token}&channel=${conf.slack.channel}&oldest=${last}&pretty=1`,
         method: 'GET'
     }
     request(options, (error, response, body) => {
@@ -27,10 +28,20 @@ var checkForGo = last => {
             for (var i = 0; i < msgs.length; i++) {
                 var msg = msgs[i];
                 addMsg(msg);
-                if (msg.text.match(GO))
+                if (msg.text.match(trigger_pattern))
                     console.log(`triggerd : ${msg.text}`);
             }
         }
+    });
+}
+
+var updateMsgs = () => {
+    getLastMsgQuery().exec(function(err, doc) {
+        if (!err)
+            if (doc)
+                checkForGo(doc.ts);
+            else
+                checkForGo(0);
     });
 }
 
@@ -42,11 +53,8 @@ router.get('/last', (req, res) => {
     });
 });
 
-router.get('/seed', (req, res) => {
-    getLastMsgQuery().exec(function(err, doc) {
-        if (!err)
-            checkForGo(doc.ts);
-    });
+router.post('/seed', (req, res) => {
+    updateMsgs();
     res.send({ "status": "ok" });
 });
 
@@ -68,3 +76,5 @@ router.get('/msgs', (req, res) => {
     })
 
 });
+
+module.exports = router;

@@ -4,13 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var slack = require('./controllers/slack');
 
 mongoose.connect('mongodb://localhost:27017/zappy');
 mongoose.connection.once('open', () => {
-    console.log('connected to mongo')
+    console.log('connected to mongo');
 })
 mongoose.connection.on('error', (err) => {
-    console.log('error connecting to mongo', err)
+    console.log('error connecting to mongo', err);
 })
 
 
@@ -26,8 +27,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/slack', slack);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
