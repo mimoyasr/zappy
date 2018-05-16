@@ -54,17 +54,17 @@ var updateMsgs = () => {
     });
 }
 
+router.post('/seed', (req, res) => {
+    updateMsgs();
+    res.send({ "status": "ok" });
+});
+
 router.get('/last', (req, res) => {
     getLastMsgQuery().exec(function(err, doc) {
         if (err)
             return console.log(err);
         res.send(doc);
     });
-});
-
-router.post('/seed', (req, res) => {
-    updateMsgs();
-    res.send({ "status": "ok" });
 });
 
 router.get('/clean', (req, res) => {

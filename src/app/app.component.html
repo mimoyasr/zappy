@@ -8,7 +8,7 @@
 
             <div class="bs-component">
 
-                <table class="table table-hover">
+                <table class="table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
 
-                        <tr class="table-info" *ngFor="let tweet of tweets">
+                        <tr *ngFor="let tweet of tweets">
                             <th scope="row">{{ tweet.id_str }}</th>
                             <td>{{ tweet.text }}</td>
                             <td>{{ tweet.user }}</td>
