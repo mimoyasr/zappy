@@ -56,6 +56,7 @@ var updateMsgs = () => {
 
 router.post('/seed', (req, res) => {
     updateMsgs();
+    res.setHeader('Content-Type', 'application/json');
     res.send({ "status": "ok" });
 });
 
