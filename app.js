@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var slack = require('./controllers/slack');
+var twitter = require('./controllers/twitter').router;
 
 mongoose.connect('mongodb://localhost:27017/zappy');
 mongoose.connection.once('open', () => {
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/slack', slack);
+app.use('/twitter', twitter);
 
 
 // catch 404 and forward to error handler

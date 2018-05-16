@@ -1,12 +1,13 @@
 {
+    "port": 8080,
     "slack": {
         "token": "xoxp-362716750658-362489754468-362064847232-6a502ce08b7d0b614b206e4747485107",
         "channel": "CANR4EQ21"
     },
     "twitter": {
-        "consumer_key": "FfzTxJ2G35CAa6Fq4hzjYsnjH",
-        "consumer_secret": "tCoXxMg0ZfBPrdTMc57oQNYyBZx1Zqz8pNEobhGaFfUdxqTuTu",
-        "access_token": "235987390-qwW1YIWiFofFgsli5Xy5eNWY72KbAWCvQg8maSB2",
-        "access_token_secret": "N0KTUK7FT32Nx2qEdJAW3Uh4mZlvRphgiiSQMfOaIQIgY"
+        "consumer_key": "9fRBANAEvCgHbbAXOTLIEsH2r",
+        "consumer_secret": "3Ru02CM7KFnbJpQNoAzQAXK7p5PzEWMxTVQFGoI4tOcmMoKW2q",
+        "access_token": "235987390-avEv0ublBCooRpLYuKqcvJzIWJCedEFtbXS7qp37",
+        "access_token_secret": "h85OKidVVa4U6PBV6uCYSf5Zf7L7d1fhMhJtHZU3NzBtY"
     }
 }
