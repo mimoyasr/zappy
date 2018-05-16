@@ -1,0 +1,33 @@
+<div class="container ">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1>Tweets</h1>
+            </div>
+
+            <div class="bs-component">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Tweet</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr class="table-info" *ngFor="let tweet of tweets">
+                            <th scope="row">{{ tweet.id_str }}</th>
+                            <td>{{ tweet.text }}</td>
+                            <td>{{ tweet.user }}</td>
+                            <td>{{ tweet.created_at }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
