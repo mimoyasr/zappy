@@ -109,3 +109,5 @@ testem.log
 Thumbs.db
 
 
+# igonre conf file 
+conf.json
