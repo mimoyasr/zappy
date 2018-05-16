@@ -1,0 +1,8 @@
+.logo {
+    background: #2b9eeb;
+    margin: 0 auto;
+}
+
+.row-hover:hover {
+    background: #2b9eeb !important;
+}
