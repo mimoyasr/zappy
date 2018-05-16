@@ -60,6 +60,7 @@ router.get('/update', (req, res) => {
 });
 
 router.get('/', (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
     Tweet.find().lean().exec(function(err, tweets) {
         if (!err)
             res.send(JSON.stringify(tweets));
