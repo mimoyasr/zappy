@@ -20,6 +20,7 @@ describe('zappy', function() {
             .post('/slack/seed/')
             .end(function(err, res) {
                 res.should.have.status(200);
+                res.should.be.json;
                 done();
             });
     });

@@ -4,7 +4,6 @@ var Msg = require('../models/Messages');
 var router = express.Router();
 const conf = require('../conf.json');
 var updateTweets = require('./twitter').update;
-
 const trigger_pattern = new RegExp('.*go.*', "i");
 
 
@@ -60,31 +59,34 @@ router.post('/seed', (req, res) => {
     res.send({ "status": "ok" });
 });
 
-router.get('/last', (req, res) => {
-    getLastMsgQuery().exec(function(err, doc) {
-        if (err)
-            return console.log(err);
-        res.send(doc);
+if (conf.env == "dev") {
+
+    router.get('/last', (req, res) => {
+        getLastMsgQuery().exec(function(err, doc) {
+            if (err)
+                return console.log(err);
+            res.send(doc);
+        });
     });
-});
 
-router.get('/clean', (req, res) => {
-    Msg.remove({}, (err, ok) => {
-        if (err)
-            res.send({ "status": err });
-        else
-            res.send({ "status": "ok" });
+    router.get('/clean', (req, res) => {
+        Msg.remove({}, (err, ok) => {
+            if (err)
+                res.send({ "status": err });
+            else
+                res.send({ "status": "ok" });
+
+        });
+    });
+
+    router.get('/', (req, res) => {
+        Msg.find(function(err, doc) {
+            if (!err) {
+                res.send(doc)
+            }
+        })
 
     });
-});
-
-router.get('/', (req, res) => {
-    Msg.find(function(err, doc) {
-        if (!err) {
-            res.send(doc)
-        }
-    })
-
-});
+}
 
 module.exports = router;

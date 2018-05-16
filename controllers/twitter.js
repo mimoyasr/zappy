@@ -54,11 +54,6 @@ var client = new Twitter({
     access_token_secret: `${conf.twitter.access_token_secret}`
 });
 
-router.get('/update', (req, res) => {
-    callUpdate()
-    res.send({ "status": "ok" });
-});
-
 router.get('/', (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
@@ -70,25 +65,32 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/last', (req, res) => {
-    getLastTweetQuery().exec(function(err, doc) {
-        if (err)
-            return console.log(err);
-        res.send(doc);
+if (conf.env == "dev") {
+
+    router.get('/update', (req, res) => {
+        callUpdate()
+        res.send({ "status": "ok" });
     });
-});
 
-
-router.get('/clean', (req, res) => {
-    Tweet.remove({}, (err, ok) => {
-        if (err)
-            res.send({ "status": err });
-        else
-            res.send({ "status": "ok" });
-
+    router.get('/last', (req, res) => {
+        getLastTweetQuery().exec(function(err, doc) {
+            if (err)
+                return console.log(err);
+            res.send(doc);
+        });
     });
-});
 
+    router.get('/clean', (req, res) => {
+        Tweet.remove({}, (err, ok) => {
+            if (err)
+                res.send({ "status": err });
+            else
+                res.send({ "status": "ok" });
+
+        });
+    });
+
+}
 
 module.exports.router = router;
 module.exports.update = callUpdate;
